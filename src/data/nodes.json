@@ -1,0 +1,33 @@
+[
+  { "id": "N1",  "name": "Entrance",      "x": 0,  "y": 14, "type": "room" },
+  { "id": "N2",  "name": "Admin",         "x": 9,  "y": 23, "type": "room" },
+  { "id": "N3",  "name": "Stairs",        "x": 25, "y": 23, "type": "room" },
+  { "id": "N4",  "name": "C006",          "x": 41, "y": 23, "type": "room" },
+  { "id": "N5",  "name": "C007",          "x": 55, "y": 23, "type": "room" },
+  { "id": "N6",  "name": "Washroom",      "x": 67, "y": 23, "type": "room" },
+  { "id": "N7",  "name": "Exit",          "x": 71, "y": 14, "type": "room" },
+  { "id": "N8",  "name": "C013",          "x": 7,  "y": 5,  "type": "room" },
+  { "id": "N9",  "name": "C012",          "x": 24, "y": 5,  "type": "room" },
+  { "id": "N10", "name": "C011",          "x": 41, "y": 5,  "type": "room" },
+  { "id": "N11", "name": "Computer Lab",  "x": 61, "y": 5,  "type": "room" },
+
+  { "id": "W1",  "name": "Corridor W1",   "x": 8,  "y": 14, "type": "waypoint" },
+  { "id": "W2",  "name": "Corridor W2",   "x": 16, "y": 14, "type": "waypoint" },
+  { "id": "W3",  "name": "Corridor W3",   "x": 25, "y": 14, "type": "waypoint" },
+  { "id": "W4",  "name": "Corridor W4",   "x": 33, "y": 14, "type": "waypoint" },
+  { "id": "W5",  "name": "Corridor W5",   "x": 41, "y": 14, "type": "waypoint" },
+  { "id": "W6",  "name": "Corridor W6",   "x": 48, "y": 14, "type": "waypoint" },
+  { "id": "W7",  "name": "Corridor W7",   "x": 55, "y": 14, "type": "waypoint" },
+  { "id": "W8",  "name": "Corridor W8",   "x": 61, "y": 14, "type": "waypoint" },
+  { "id": "W9",  "name": "Corridor W9",   "x": 67, "y": 14, "type": "waypoint" },
+
+  { "id": "D1",  "name": "Admin Door",    "x": 9,  "y": 18, "type": "door" },
+  { "id": "D2",  "name": "Stairs Door",   "x": 25, "y": 18, "type": "door" },
+  { "id": "D3",  "name": "C006 Door",     "x": 41, "y": 18, "type": "door" },
+  { "id": "D4",  "name": "C007 Door",     "x": 55, "y": 18, "type": "door" },
+  { "id": "D5",  "name": "Washroom Door", "x": 67, "y": 18, "type": "door" },
+  { "id": "D6",  "name": "C013 Door",     "x": 7,  "y": 10, "type": "door" },
+  { "id": "D7",  "name": "C012 Door",     "x": 24, "y": 10, "type": "door" },
+  { "id": "D8",  "name": "C011 Door",     "x": 41, "y": 10, "type": "door" },
+  { "id": "D9",  "name": "CompLab Door",  "x": 61, "y": 10, "type": "door" }
+]
