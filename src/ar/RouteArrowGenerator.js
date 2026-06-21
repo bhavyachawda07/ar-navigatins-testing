@@ -52,7 +52,7 @@ export function generateRouteArrows(pathIds, nodeMap, spacing = 4.5) {
     // Calculate heading angle (yaw)
     // atan2(dx, dy) matches coordinate system
     // In Three.js, we flip Y for Z: z = -y, so angle = Math.atan2(dx, -dy)
-    const angle = Math.atan2(dx, dy);
+    const angle = Math.atan2(dx, -dy);
 
     // Interpolate arrows along this segment
     // We space them out by `spacing` feet.

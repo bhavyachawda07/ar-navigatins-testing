@@ -25,16 +25,18 @@ export default function ARArrowRenderer({ pathIds, nodeMap, stepIndex = 0, orien
     if (!canvas) return;
 
     // 1. Initialize Scene, Camera, and WebGL Renderer
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       65,
-      canvas.clientWidth / canvas.clientHeight,
+      w / h,
       0.01,
       200
     );
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setSize(w, h);
     renderer.setClearColor(0x000000, 0); // Transparent background
 
     // 2. Lighting Setup (Bright cyan/blue ambient + directional)
@@ -218,12 +220,20 @@ export default function ARArrowRenderer({ pathIds, nodeMap, stepIndex = 0, orien
     if (orientation?.alpha === null || orientation?.alpha === undefined) return;
 
     const toRad = (deg) => (deg * Math.PI) / 180;
-    const a = toRad(orientation.alpha ?? 0);
-    const b = toRad(orientation.beta ?? 0);
-    const g = toRad(orientation.gamma ?? 0);
+    const alpha = toRad(orientation.alpha ?? 0);
+    const beta = toRad(orientation.beta ?? 0);
+    const gamma = toRad(orientation.gamma ?? 0);
 
-    // Rotate camera using mobile gyroscope
-    camera.rotation.set(b, -a, -g, 'YXZ');
+    const deviceEuler = new THREE.Euler();
+    const deviceQuaternion = new THREE.Quaternion();
+    const worldTransform = new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)); // -90 deg around X
+
+    // Set Euler rotation using standard YXZ order matching device coordinates
+    deviceEuler.set(beta, alpha, -gamma, 'YXZ');
+    deviceQuaternion.setFromEuler(deviceEuler);
+
+    // Copy to camera and correct the coordinate frame so it looks forward
+    camera.quaternion.copy(deviceQuaternion).multiply(worldTransform);
   }, [orientation]);
 
   return (

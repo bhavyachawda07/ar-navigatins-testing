@@ -22,6 +22,17 @@ export default function CameraLayer({ onReady, onError, active = true }) {
   const streamRef = useRef(null);
   const playTriggered = useRef(false);
 
+  const onReadyRef = useRef(onReady);
+  const onErrorRef = useRef(onError);
+
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
+
+  useEffect(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
+
   useEffect(() => {
     if (!active) return;
 
@@ -39,11 +50,22 @@ export default function CameraLayer({ onReady, onError, active = true }) {
         streamRef.current = stream;
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
+          playTriggered.current = true;
+          onReadyRef.current?.();
+
+          // Request playback in the next tick once loading overlay is unmounted and video is visible
+          setTimeout(() => {
+            if (mounted) {
+              videoRef.current?.play().catch(err => {
+                console.warn('Programmatic play attempt failed:', err);
+              });
+            }
+          }, 50);
         }
       } catch (err) {
         if (mounted) {
           const errorDetails = CameraService.mapError(err);
-          onError?.(errorDetails.message);
+          onErrorRef.current?.(errorDetails.message);
         }
       }
     }
@@ -57,12 +79,12 @@ export default function CameraLayer({ onReady, onError, active = true }) {
         streamRef.current = null;
       }
     };
-  }, [active, onError]);
+  }, [active]);
 
   const handlePlay = () => {
     if (playTriggered.current) return;
     playTriggered.current = true;
-    onReady?.();
+    onReadyRef.current?.();
   };
 
   return (
